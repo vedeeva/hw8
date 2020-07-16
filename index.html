@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Day 6</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <h5>Task List</h5>
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <input id="task" class="form-control" type="text" placeholder="the task..." />
+                        <div class="input-group-append">
+                            <button id="addBtn" type="button" class="btn btn-outline-secondary">
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                    <div class="radio">
+                        <p> Set a priority:</p>
+                        <label class="radio-inline"><input type="radio" name="optradio" value="low" checked>Low</label>
+                        <label class="radio-inline"><input type="radio" name="optradio" value="medium">Medium</label>
+                        <label class="radio-inline"><input type="radio" name="optradio" value="high">High</label>
+                        </div>
+                </div>
+            </div>
+
+            <table class="table table-sm table-bordered mt-2">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Tasks</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Priority</th>
+                    </tr>
+                </thead>
+                <tbody id="taskList"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-database.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyD2ZreeQNzvf9NSxOWQxYj0Mit7OMVrQ3c",
+            authDomain: "hw6-victoria.firebaseapp.com",
+            databaseURL: "https://hw6-victoria.firebaseio.com",
+            projectId: "hw6-victoria",
+            storageBucket: "hw6-victoria.appspot.com",
+            messagingSenderId: "329112163371",
+            appId: "1:329112163371:web:659231f58fe05bff50866e"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
