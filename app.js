@@ -1,3 +1,4 @@
+//document.getElementById("loginPage").style.display = "none";
 class Task {
     constructor(id, title, priorityId) {
       this.id = id;
@@ -45,6 +46,7 @@ class Task {
 
             let badge = "badge-success";
             let text="Low";
+            
             if(taskData.priorityId === "high"){
                 badge = "badge-danger";
                 text= this.priorities.find(priority => priority.id == task.priorityId).message;
@@ -189,6 +191,7 @@ class Task {
       taskListPage.addTask(taskTitle,selectedValue);
     }
   });
+
   
   document.getElementById("taskList").addEventListener("click", (e) => {
     const action = e.target.getAttribute("data-action");
@@ -197,19 +200,41 @@ class Task {
     const taskId = e.target.getAttribute("data-task-id");
     taskListPage.startEdittingTask(taskId);
   });
+  document.getElementById("submit").addEventListener("click", (e) => {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // ...
+    });
+  });
+  document.getElementById("submit").addEventListener("click", (e) => {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // ...
+  });
+  });
   
-  // function getData2(prop1, prop2) {
-  
-  // }
-  
-  // function getData(propertyHolder) {
-  //     //propertyHolder.prop1
-  //     //propertyHolder.prop2
-  // }
-  
-  // function getData() {
-  //     this.prop1 = "a";
-  //     this.prop2 = "b";
-  
-  //     getData2(this.prop1, this.prop2);
-  // }
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      // User is signed in.
+      var displayName = user.displayName;
+      var email = user.email;
+      var emailVerified = user.emailVerified;
+      var photoURL = user.photoURL;
+      var isAnonymous = user.isAnonymous;
+      var uid = user.uid;
+      var providerData = user.providerData;
+      console.log("here");
+      document.getElementById("loginPage").style.display = "none";
+      document.getElementById("taskListPage").style.display = "initial";
+    } else {
+      document.getElementById("taskListPage").style.display = "none";
+    }
+  });
