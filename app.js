@@ -210,7 +210,7 @@ class Task {
       // ...
     });
   });
-  document.getElementById("submit").addEventListener("click", (e) => {
+  document.getElementById("signIn").addEventListener("click", (e) => {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
