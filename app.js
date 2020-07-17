@@ -64,6 +64,7 @@ class Task {
               <td>${task.title}</td>
               <td>
                 <button data-action="edit" data-task-id="${task.id}" class="btn btn-primary">Edit</button>
+                <button data-action="delete" data-task-id="${task.id}" class="btn btn-danger">Delete</button>
               </td>
               <td><span class="badge ${badge}">${text}</span></td>
               `;
@@ -103,7 +104,9 @@ class Task {
 
       row.innerHTML = `
       <td>${task.title}</td>
-      <td><button data-action="edit" data-task-id="${task.taskId}" class="btn btn-primary">Edit</button></td>
+      <td><button data-action="edit" data-task-id="${task.taskId}" class="btn btn-primary">Edit</button>
+      <button data-action="delete" data-task-id="${task.id}" class="btn btn-danger">Delete</button>
+      </td>
       <td><span class="badge ${badge}">${text}</span></td>
       `;
       taskListElement.appendChild(row);
@@ -166,6 +169,17 @@ class Task {
         .catch((err) => console.log(err));
   
     }
+
+    delete(taskId){
+      const task = this.tasks.find((task) => task.id == taskId);
+      if (!task) return;
+  
+      firebase.database().ref('tasks').child(taskId).remove();
+  
+      const existingRow = document.querySelector(`tr[data-task-id="${task.id}"]`);
+      if (!existingRow) return;
+      existingRow.remove();
+    }
     }
   
   const taskListPage = new TaskListPage();
@@ -193,12 +207,16 @@ class Task {
   });
 
   
+
+  
   document.getElementById("taskList").addEventListener("click", (e) => {
     const action = e.target.getAttribute("data-action");
-    if (action !== "edit") return;
-  
     const taskId = e.target.getAttribute("data-task-id");
-    taskListPage.startEdittingTask(taskId);
+    if (action == "edit") {
+      taskListPage.startEdittingTask(taskId);
+    } else if (action == "delete") {
+      taskListPage.delete(taskId);
+    }
   });
   document.getElementById("submit").addEventListener("click", (e) => {
     const email = document.getElementById("email").value;
